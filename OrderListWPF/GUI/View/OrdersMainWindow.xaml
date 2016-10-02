@@ -1,0 +1,34 @@
+﻿<Window x:Class="OrderListWPF.GUI.View.OrdersMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:OrderListWPF.GUI.View"
+        xmlns:local="clr-namespace:OrderListWPF"
+        xmlns:viewModel="clr-namespace:OrderListWPF.GUI.ViewModel"
+        mc:Ignorable="d"
+        Title="Active Orders List" 
+        MinHeight="300" MinWidth="300"
+        Height="550" Width="1125" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition/>
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Label Content="Orders count to show:"/>
+            <TextBox Text="{Binding OrdersShowCount, Mode=TwoWay}" Margin="4, 4" Width="100"/>
+        </StackPanel>
+        <uc:OrderListView Grid.Row="1" 
+                          ItemsSource="{Binding OrdersList}" 
+                          SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
+                          OrderCompletingHandler="{Binding SetOrdersCompleteCommand}"
+                          OrderNewHandler="{Binding SetOrdersActiveCommand}"
+                          HighlightDuration="{Binding HighlightDuration}"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Name="BtnGenerateOrder" Command="{Binding GenerateOrderCommand}" Content="Generate Order" Padding="10, 4" Margin="4, 2"/>
+            <Button Name="BtnExecuteOrder" Command="{Binding ExecuteOrderCommand}" Content="Execute Order" Padding="10, 4" Margin="4, 2"/>
+        </StackPanel>
+    </Grid>
+</Window>
