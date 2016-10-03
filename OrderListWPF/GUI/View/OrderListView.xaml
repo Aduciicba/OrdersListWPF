@@ -29,7 +29,7 @@
             <!-- Стиль для строки таблицы  -->
             <Style TargetType="{x:Type xcdg:DataRow}">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding OrderViewStatus, Converter={StaticResource OrderViewStatusToIntConverter}}" Value="-1">
+                    <DataTrigger Binding="{Binding OrderViewStatus}" Value="-1">
                         <DataTrigger.EnterActions>
                             <BeginStoryboard Name="NewOrderAnimation" Storyboard="{StaticResource NewOrderStoryboard}"/>
                         </DataTrigger.EnterActions>
@@ -37,7 +37,7 @@
                             <StopStoryboard BeginStoryboardName="NewOrderAnimation"/>
                         </DataTrigger.ExitActions>
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding OrderViewStatus, Converter={StaticResource OrderViewStatusToIntConverter}}" Value="1">
+                    <DataTrigger Binding="{Binding OrderViewStatus}" Value="1">
                         <DataTrigger.EnterActions>
                             <BeginStoryboard Name="CompletedOrderAnimation" Storyboard="{StaticResource CompletedOrderStoryboard}"/>
                         </DataTrigger.EnterActions>
@@ -84,6 +84,7 @@
             </xcdg:DataGridControl.View>
             <xcdg:DataGridControl.Columns>
                 <xcdg:Column FieldName="Id" Visible="False" IsMainColumn="True" Title="Id"/>
+                <xcdg:Column FieldName="CreatingTime" Visible="True" Title="Creating Time" CellContentTemplate="{StaticResource DatetimeTextTemplate}"/>
                 <xcdg:Column FieldName="ActionName" Visible="True" Title="Action Name"/>
                 <xcdg:Column FieldName="OrderTypeName" Visible="True" Title="Order Type"/>
                 <xcdg:Column FieldName="Quantity" Title="Quantity" CellContentTemplate="{StaticResource DecimalTextTemplate}" Width="100"/>
@@ -93,8 +94,9 @@
                 <xcdg:Column FieldName="ExpectedTradePrice" Title="Expected Trade Price" CellContentTemplate="{StaticResource DecimalTextTemplate}" Width="100"/>
                 <xcdg:Column FieldName="Tag" Title="Tag"/>
                 <xcdg:Column FieldName="ToProcessAsName" Title="To Process As"/>
-                <xcdg:Column FieldName="OrderStatus" Title="Order Status"/>
+                <xcdg:Column FieldName="OrderStatus" Title="Order Status" Width="100"/>
                 <xcdg:Column FieldName="OrderViewStatus" Visible="False" Title="Order View Status"/>
+                <xcdg:Column FieldName="LastOrderViewStatusUpdateTime" Visible="False" Title="LastOrderViewStatusUpdateTime"/>
             </xcdg:DataGridControl.Columns>
         </xcdg:DataGridControl>
     </Grid>

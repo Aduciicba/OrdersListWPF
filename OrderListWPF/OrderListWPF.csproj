@@ -96,6 +96,7 @@
     <Compile Include="DAL\Interface\IOrder.cs" />
     <Compile Include="DAL\Model\Order.cs" />
     <Compile Include="GUI\Common\Command\DelegateCommand.cs" />
+    <Compile Include="GUI\Common\Converters\ItemIndexToRowIndexConverter.cs" />
     <Compile Include="GUI\Common\Converters\OrderViewStatusToIntConverter.cs" />
     <Compile Include="GUI\Common\EventsData\OrderEventType.cs" />
     <Compile Include="GUI\Common\EventsData\OrderEventArgs.cs" />

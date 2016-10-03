@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using OrderListWPF.GUI.ViewModel;
 
-namespace OrderListWPF.GUI.Common.Converters
-{
+namespace OrderListWPF.GUI.Common.Converters{
+
     /// <summary>
-    /// Convert OrdersViewStatusType enum value to int value
+    /// Convert item index in Datagrid to row index by incrementing
     /// </summary>
-    [ValueConversion(typeof(OrdersViewStatusType), typeof(int))]
-    public class OrderViewStatusToIntConverter : IValueConverter
+    [ValueConversion(typeof(int), typeof(int))]
+    public class ItemIndexToRowIndexConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is OrdersViewStatusType)
+            if (value is int)
             {
-                return (int)value;
+                return (int)value + 1;
             }
             return value;
         }
@@ -24,7 +23,7 @@ namespace OrderListWPF.GUI.Common.Converters
         {
             if (value is int)
             {
-                return (OrdersViewStatusType)value;
+                return (int)value - 1;
             }
             return value;
         }

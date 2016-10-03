@@ -85,12 +85,8 @@ namespace OrderListWPF.GUI.View
             new UIPropertyMetadata(null));
         public Duration HighlightDuration
         {
-            get {
-                OrdersGrid.DataContext = HighlightDuration;
-                return (Duration)GetValue(HighlightDurationProperty);
-                
-            }
-            set { SetValue(HighlightDurationProperty, value); OrdersGrid.DataContext = HighlightDuration; }
+            get { return (Duration)GetValue(HighlightDurationProperty); }
+            set { SetValue(HighlightDurationProperty, value); }
         }
 
         #endregion
@@ -99,7 +95,6 @@ namespace OrderListWPF.GUI.View
         {
             InitializeComponent();
         }
-
 
 
         /// <summary>
@@ -114,7 +109,7 @@ namespace OrderListWPF.GUI.View
         /// <summary>
         /// Event handler for CompletedOrderStoryboard Completed event
         /// </summary>
-        public void OnNewAnimationFinished(object sender, object e)
+        public void OnNewAnimationFinished(object sender, EventArgs e)
         {
             OrderNewHandler?.Execute(sender);
 

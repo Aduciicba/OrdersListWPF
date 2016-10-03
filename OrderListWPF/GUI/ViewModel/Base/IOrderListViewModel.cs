@@ -7,8 +7,8 @@ namespace OrderListWPF.GUI.ViewModel.Base
     /// </summary>
     public interface IOrderListViewModel
     {
-        ObservableCollection<OrderItemViewModel> OrdersList { get; }
-        OrderItemViewModel SelectedOrder { get; }
+        ObservableCollection<IOrderItemViewModel> OrdersList { get; }
+        IOrderItemViewModel SelectedOrder { get; }
 
     }
 }

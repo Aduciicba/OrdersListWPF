@@ -20,9 +20,9 @@ namespace OrderListWPF.GUI.ViewModel.Base
         string Tag { get; }
         string ToProcessAsName { get; }
         DateTime CreatingTime { get; }
-        OrderStatusType OrderStatus { get; }
-        OrdersViewStatusType OrderViewStatus { get; }
-        DateTime LastOrderViewStatusUpdateTime { get; }
+        OrderStatusType OrderStatus { get; set; }
+        OrdersViewStatusType OrderViewStatus { get; set; }
+        DateTime LastOrderViewStatusUpdateTime { get; set; }
         Order ToModel();
     }
 }

@@ -25,13 +25,13 @@ namespace OrderListWPF.GUI.ViewModel
         /// <summary>
         /// Source orders collection
         /// </summary>
-        private ObservableCollection<OrderItemViewModel> _ordersList;
-        public ObservableCollection<OrderItemViewModel> OrdersList
+        private ObservableCollection<IOrderItemViewModel> _ordersList;
+        public ObservableCollection<IOrderItemViewModel> OrdersList
         {
             get
             {
                 if (_ordersList == null)
-                    _ordersList = new ObservableCollection<OrderItemViewModel>();
+                    _ordersList = new ObservableCollection<IOrderItemViewModel>();
                 return _ordersList;
             }
             private set { _ordersList = value; }
@@ -40,8 +40,8 @@ namespace OrderListWPF.GUI.ViewModel
         /// <summary>
         /// Current selected order
         /// </summary>
-        private OrderItemViewModel _selectedOrder;
-        public OrderItemViewModel SelectedOrder
+        private IOrderItemViewModel _selectedOrder;
+        public IOrderItemViewModel SelectedOrder
         {
             get { return _selectedOrder; }
             set
@@ -176,6 +176,7 @@ namespace OrderListWPF.GUI.ViewModel
         {
             ChangeOrdersViewStatus(OrdersViewStatusType.New, OrdersViewStatusType.Active);
         }
+
 
         /// <summary>
         /// Change compliting orders view status to complete if highlighting time is expired
