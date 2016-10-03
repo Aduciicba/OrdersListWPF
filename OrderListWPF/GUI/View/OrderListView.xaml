@@ -8,59 +8,50 @@
              mc:Ignorable="d" x:Name="OrdersListControl"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <!-- Кисти  -->
-        <SolidColorBrush x:Key="ActiveNewBrush" Color="#049919" />
-        <SolidColorBrush x:Key="ActiveNormalBrush" Color="Black" />
-        <SolidColorBrush x:Key="CompletedBrush" Color="#B6B2B2" />
-        <!-- Конверторы  -->
-        <converters:OrderViewStatusToIntConverter x:Key="OrderViewStatusToIntConverter" />
-        <!-- Индекс строки в столбце RowSelector  -->
-        <Style x:Key="ItemIndexSelectorStyle"
-               TargetType="{x:Type xcdg:RowSelector}">
-            <Setter Property="Content" Value="{Binding RelativeSource={RelativeSource Self}, Path=ItemIndex}"/>
-        </Style>
-        <!-- Анимация для завершенного заказа  -->
-        <Storyboard x:Key="CompletedOrderStoryboard" Completed="OnCompleteAnimationFinished">
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground">
-                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CompletedBrush}" />
-                <DiscreteObjectKeyFrame KeyTime="0:0:10" Value="{StaticResource ActiveNormalBrush}" />
-            </ObjectAnimationUsingKeyFrames>
-        </Storyboard>
-        <!-- Анимация для нового заказа  -->
-        <Storyboard x:Key="NewOrderStoryboard" Completed="OnNewAnimationFinished">
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground">
-                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ActiveNewBrush}" />
-                <DiscreteObjectKeyFrame KeyTime="0:0:10" Value="{StaticResource ActiveNormalBrush}" />
-            </ObjectAnimationUsingKeyFrames>
-        </Storyboard>
-        <!-- Стиль для строки таблицы  -->
-        <Style TargetType="{x:Type xcdg:DataRow}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding OrderViewStatus, Converter={StaticResource OrderViewStatusToIntConverter}}" Value="-1">
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard Name="NewOrderAnimation" Storyboard="{StaticResource NewOrderStoryboard}"/>
-                    </DataTrigger.EnterActions>
-                    <DataTrigger.ExitActions>
-                        <StopStoryboard BeginStoryboardName="NewOrderAnimation"/>
-                    </DataTrigger.ExitActions>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding OrderViewStatus, Converter={StaticResource OrderViewStatusToIntConverter}}" Value="1">
-                    <DataTrigger.EnterActions>
-                        <BeginStoryboard Name="CompletedOrderAnimation" Storyboard="{StaticResource CompletedOrderStoryboard}"/>
-                    </DataTrigger.EnterActions>
-                    <DataTrigger.ExitActions>
-                        <StopStoryboard BeginStoryboardName="CompletedOrderAnimation"/>
-                    </DataTrigger.ExitActions>
-                </DataTrigger>
-            </Style.Triggers>
-            <Setter Property="SelectionForeground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}"/>
-            <Setter Property="InactiveSelectionForeground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}"/>
-            <Setter Property="xcdg:RowSelector.RowSelectorStyle" Value="{StaticResource ItemIndexSelectorStyle}" />
-        </Style>
-        <!-- Шаблон для ячеек с дробными числами  -->
-        <DataTemplate x:Key="DecimalTextTemplate">
-            <TextBlock Text="{Binding StringFormat=N3}"/>
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="OrderListResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Анимация для завершенного заказа  -->
+            <Storyboard x:Key="CompletedOrderStoryboard" Completed="OnCompleteAnimationFinished">
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground">
+                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource CompletedBrush}" />
+                    <DiscreteObjectKeyFrame KeyTime="0:0:10" Value="{StaticResource ActiveNormalBrush}" />
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <!-- Анимация для нового заказа  -->
+            <Storyboard x:Key="NewOrderStoryboard" Completed="OnNewAnimationFinished">
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground">
+                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ActiveNewBrush}" />
+                    <DiscreteObjectKeyFrame KeyTime="0:0:10" Value="{StaticResource ActiveNormalBrush}" />
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <!-- Стиль для строки таблицы  -->
+            <Style TargetType="{x:Type xcdg:DataRow}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding OrderViewStatus, Converter={StaticResource OrderViewStatusToIntConverter}}" Value="-1">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Name="NewOrderAnimation" Storyboard="{StaticResource NewOrderStoryboard}"/>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <StopStoryboard BeginStoryboardName="NewOrderAnimation"/>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding OrderViewStatus, Converter={StaticResource OrderViewStatusToIntConverter}}" Value="1">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Name="CompletedOrderAnimation" Storyboard="{StaticResource CompletedOrderStoryboard}"/>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <StopStoryboard BeginStoryboardName="CompletedOrderAnimation"/>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                </Style.Triggers>
+                <Setter Property="SelectionForeground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}"/>
+                <Setter Property="InactiveSelectionForeground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}"/>
+                <Setter Property="xcdg:RowSelector.RowSelectorStyle" Value="{StaticResource ItemIndexSelectorStyle}" />
+            </Style>
+        
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <xcdg:DataGridControl x:Name="OrdersGrid"

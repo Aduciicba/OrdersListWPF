@@ -1,14 +1,23 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
-                    xmlns:vm="clr-namespace:OrderListWPF.GUI.ViewModel.Base">
-    
-    
+                    xmlns:vm="clr-namespace:OrderListWPF.GUI.ViewModel.Base"
+                    xmlns:converters="clr-namespace:OrderListWPF.GUI.Common.Converters">
+
+
+    <!-- Кисти  -->
     <SolidColorBrush x:Key="ActiveNewBrush" Color="#049919" />
     <SolidColorBrush x:Key="ActiveNormalBrush" Color="Black" />
-    <SolidColorBrush x:Key="CompletedBrush" Color="#F61A1A" />
+    <SolidColorBrush x:Key="CompletedBrush" Color="#B6B2B2" />
+    <!-- Конверторы  -->
+    <converters:OrderViewStatusToIntConverter x:Key="OrderViewStatusToIntConverter" />
+    <!-- Индекс строки в столбце RowSelector  -->
+    <Style x:Key="ItemIndexSelectorStyle"
+               TargetType="{x:Type xcdg:RowSelector}">
+        <Setter Property="Content" Value="{Binding RelativeSource={RelativeSource Self}, Path=ItemIndex}"/>
+    </Style>
 
-    <Style TargetType="{x:Type xcdg:DataRow}">
+    <!--Style TargetType="{x:Type xcdg:DataRow}">
         <Style.Triggers>
             <DataTrigger Binding="{Binding OrderViewStatus}" Value="2">
                 <DataTrigger.EnterActions>
@@ -45,8 +54,11 @@
             </DataTrigger>
         </Style.Triggers>
         <Setter Property="SelectionForeground" Value="{Binding RelativeSource={RelativeSource Self}, Path=Foreground}"/>
-    </Style>
+    </-->
 
-
+    <!-- Шаблон для ячеек с дробными числами  -->
+    <DataTemplate x:Key="DecimalTextTemplate">
+        <TextBlock Text="{Binding StringFormat=N3}"/>
+    </DataTemplate>
 
 </ResourceDictionary>
